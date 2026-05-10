@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Vercel
+.vercel/
+
+# Logs
+*.log
+
+# Excluded from this repo (separate concerns / superseded content)
+Wesbite/
+Content Plans/
+PeakSpan Health - Muscle Loss Quiz.docx

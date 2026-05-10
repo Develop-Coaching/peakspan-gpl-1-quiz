@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-Minute Fat Loss Readiness Quiz | PeakSpan Health</title>
+    <meta name="description" content="Take our free 2-minute quiz to find out whether you're set up to lose fat without losing muscle. Get personalised, doctor-led insights from PeakSpan Health.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #0A0E12;
+            color: #f4f6f8;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0 18px;
+        }
+
+        .logo {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .compliance-banner {
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+            padding: 8px 12px;
+            border: 1px solid #131c27;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: #E5E8EC;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #131c27;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #18a4fc, #00e1de);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .screen {
+            display: none;
+            flex: 1;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            font-size: 14px;
+            color: #18a4fc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #f4f6f8;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background-color: #131c27;
+            border: 2px solid #131c27;
+            border-radius: 12px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+            text-align: left;
+            color: #f4f6f8;
+        }
+
+        .option:hover {
+            border-color: #18a4fc;
+            background-color: rgba(24, 164, 252, 0.1);
+        }
+
+        .option.selected {
+            border-color: #18a4fc;
+            background-color: rgba(24, 164, 252, 0.15);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: #E5E8EC;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            transition: color 0.2s ease;
+        }
+
+        .back-btn:hover {
+            color: #18a4fc;
+        }
+
+        .back-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .form-container {
+            flex: 1;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            font-size: 16px;
+            color: #E5E8EC;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #f4f6f8;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            border: 2px solid #131c27;
+            border-radius: 10px;
+            background-color: #131c27;
+            color: #f4f6f8;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #18a4fc;
+        }
+
+        .form-input::placeholder {
+            color: #6b7280;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #18a4fc, #00e1de);
+            color: #0A0E12;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .results-container {
+            text-align: center;
+        }
+
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .risk-badge.high {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 2px solid #ef4444;
+        }
+
+        .risk-badge.moderate {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 2px solid #f59e0b;
+        }
+
+        .risk-badge.low {
+            background-color: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 2px solid #22c55e;
+        }
+
+        .results-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .results-description {
+            font-size: 16px;
+            color: #E5E8EC;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .results-impact {
+            font-size: 16px;
+            color: #E5E8EC;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .keys-section {
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .keys-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+            color: #18a4fc;
+        }
+
+        .key-item {
+            background-color: #131c27;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .key-number {
+            font-size: 14px;
+            color: #00e1de;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .key-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #f4f6f8;
+        }
+
+        .key-description {
+            font-size: 14px;
+            color: #E5E8EC;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #131c27, #0A0E12);
+            border: 2px solid #18a4fc;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .cta-subtitle {
+            font-size: 16px;
+            color: #E5E8EC;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #18a4fc, #00e1de);
+            color: #0A0E12;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .urgency-text {
+            font-size: 14px;
+            color: #f59e0b;
+            margin-top: 16px;
+        }
+
+        .results-footer-disclaimer {
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            margin-top: 30px;
+            padding: 16px;
+            border-top: 1px solid #131c27;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px;
+            }
+
+            .question-text {
+                font-size: 20px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .results-title {
+                font-size: 24px;
+            }
+
+            .option {
+                padding: 16px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://peakspan.com.au/assets/Logo%20transparent_1755603208155-Dsc-Ix8B.png" alt="PeakSpan Health" class="logo">
+        </div>
+
+        <div class="compliance-banner">
+            Educational content. Not medical advice. Speak to a qualified doctor for personalised guidance.
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-text">Question <span id="currentQuestion">1</span> of 10</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="screen active" id="q1">
+            <div class="question-number">Question 1</div>
+            <div class="question-text">What's driving your interest in losing weight right now?</div>
+            <div class="options">
+                <button class="option" data-question="1" data-value="a">I want to lose a specific amount of weight</button>
+                <button class="option" data-question="1" data-value="b">I want more energy and to feel better day-to-day</button>
+                <button class="option" data-question="1" data-value="c">I want to improve my body composition (less fat, more muscle)</button>
+                <button class="option" data-question="1" data-value="d">I want to reduce health risks (blood pressure, blood sugar, etc.)</button>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="screen" id="q2">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 2</div>
+            <div class="question-text">How many times have you attempted to lose weight in the past 5 years?</div>
+            <div class="options">
+                <button class="option" data-question="2" data-value="a">This is my first serious attempt</button>
+                <button class="option" data-question="2" data-value="b">2-3 times</button>
+                <button class="option" data-question="2" data-value="c">4-5 times</button>
+                <button class="option" data-question="2" data-value="d">I've lost count</button>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="screen" id="q3">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 3</div>
+            <div class="question-text">How much weight are you looking to lose?</div>
+            <div class="options">
+                <button class="option" data-question="3" data-value="a">Less than 10kg</button>
+                <button class="option" data-question="3" data-value="b">10-20kg</button>
+                <button class="option" data-question="3" data-value="c">20-30kg</button>
+                <button class="option" data-question="3" data-value="d">More than 30kg</button>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="screen" id="q4">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 4</div>
+            <div class="question-text">During past weight loss attempts, did you notice changes beyond the scale?</div>
+            <div class="options">
+                <button class="option" data-question="4" data-value="a">Yes - my face, arms, or overall 'shape' looked different</button>
+                <button class="option" data-question="4" data-value="b">Yes - I felt weaker or more tired than before</button>
+                <button class="option" data-question="4" data-value="c">Not really, but I'm worried about it</button>
+                <button class="option" data-question="4" data-value="d">I haven't lost meaningful weight before</button>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="screen" id="q5">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 5</div>
+            <div class="question-text">How often do you do resistance or strength training?</div>
+            <div class="options">
+                <button class="option" data-question="5" data-value="a">3+ times per week</button>
+                <button class="option" data-question="5" data-value="b">1-2 times per week</button>
+                <button class="option" data-question="5" data-value="c">Occasionally or inconsistently</button>
+                <button class="option" data-question="5" data-value="d">Rarely or never</button>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="screen" id="q6">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 6</div>
+            <div class="question-text">How would you describe your protein intake?</div>
+            <div class="options">
+                <button class="option" data-question="6" data-value="a">High - I prioritise protein at every meal</button>
+                <button class="option" data-question="6" data-value="b">Moderate - I try to include protein but don't track it</button>
+                <button class="option" data-question="6" data-value="c">Low - I don't think much about protein</button>
+                <button class="option" data-question="6" data-value="d">Struggling - my appetite is low and I'm eating less overall</button>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="screen" id="q7">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 7</div>
+            <div class="question-text">How would you describe your day-to-day energy levels?</div>
+            <div class="options">
+                <button class="option" data-question="7" data-value="a">High - I feel sharp and energetic most days</button>
+                <button class="option" data-question="7" data-value="b">Moderate - some days are good, some aren't</button>
+                <button class="option" data-question="7" data-value="c">Low - I feel flat or tired most days</button>
+                <button class="option" data-question="7" data-value="d">Very low - I struggle to get through the day</button>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="screen" id="q8">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 8</div>
+            <div class="question-text">What's been your biggest challenge with weight loss in the past?</div>
+            <div class="options">
+                <button class="option" data-question="8" data-value="a">Sticking with it long-term</button>
+                <button class="option" data-question="8" data-value="b">Knowing what to eat</button>
+                <button class="option" data-question="8" data-value="c">Finding time to exercise</button>
+                <button class="option" data-question="8" data-value="d">Regaining weight after initial success</button>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="screen" id="q9">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 9</div>
+            <div class="question-text">Are you prepared to invest in a comprehensive, doctor-led programme?</div>
+            <div class="options">
+                <button class="option" data-question="9" data-value="a">Yes, I'm ready to invest in doing this properly</button>
+                <button class="option" data-question="9" data-value="b">It depends on the cost and what's included</button>
+                <button class="option" data-question="9" data-value="c">I'm mostly looking for affordable options</button>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="screen" id="q10">
+            <button class="back-btn" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="question-number">Question 10</div>
+            <div class="question-text">Are you currently working with any health professionals?</div>
+            <div class="options">
+                <button class="option" data-question="10" data-value="a">Yes - a doctor, dietitian, or personal trainer</button>
+                <button class="option" data-question="10" data-value="b">Just my regular GP, occasionally</button>
+                <button class="option" data-question="10" data-value="c">An online or telehealth service</button>
+                <button class="option" data-question="10" data-value="d">No - I'm doing this on my own</button>
+            </div>
+        </div>
+
+        <!-- Lead Capture Form -->
+        <div class="screen" id="leadForm">
+            <button class="back-btn" onclick="goBackToQuiz()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+            </button>
+            <div class="form-container">
+                <div class="form-title">Almost there 🎯</div>
+                <div class="form-subtitle">Enter your details to see your personalised fat loss readiness assessment.</div>
+
+                <form id="captureForm">
+                    <div class="form-group">
+                        <label class="form-label" for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Enter your first name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="e.g. 0412 345 678" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Show My Results</button>
+                </form>
+
+                <p class="disclaimer">By submitting, you agree to receive emails from PeakSpan Health. You can unsubscribe at any time.</p>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div class="screen" id="results">
+            <div class="results-container">
+                <div class="risk-badge" id="riskBadge">
+                    <span id="riskIcon"></span>
+                    <span id="riskLevel"></span>
+                </div>
+
+                <h1 class="results-title" id="resultsTitle"></h1>
+                <p class="results-description" id="resultsDescription"></p>
+                <p class="results-impact" id="resultsImpact"></p>
+
+                <div class="keys-section">
+                    <h2 class="keys-title">The 3 Keys to Losing Fat, Not Muscle</h2>
+
+                    <div class="key-item">
+                        <div class="key-number">Key 1</div>
+                        <div class="key-title">Optimised Protein Intake</div>
+                        <div class="key-description">When you're in a sustained calorie deficit, you're often eating less overall, which can mean less protein exactly when your body needs more. Research suggests 1.2-1.6g of protein per kg of bodyweight is needed to protect muscle during weight loss.</div>
+                    </div>
+
+                    <div class="key-item">
+                        <div class="key-number">Key 2</div>
+                        <div class="key-title">Strategic Strength Training</div>
+                        <div class="key-description">Cardio is great for heart health, but it's resistance training that signals your body to preserve muscle. Even 2-3 sessions per week can make a significant difference, but the programme needs to be designed for your current fitness level and goals.</div>
+                    </div>
+
+                    <div class="key-item">
+                        <div class="key-number">Key 3</div>
+                        <div class="key-title">Medical Supervision</div>
+                        <div class="key-description">A one-size-fits-all approach leaves you without the ongoing support you need to adjust as your body changes. Regular check-ins with a doctor who tracks body composition, not just the number on the scale, help ensure you're losing the right kind of weight.</div>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <h2 class="cta-title">Ready to Lose Fat Without Sacrificing Your Strength?</h2>
+                    <p class="cta-subtitle">Book a free 20-minute call with our medical team to find out if PeakSpan is right for you.</p>
+                    <p class="urgency-text" style="margin-bottom: 20px;">We only take on a limited number of new clients each month to ensure everyone gets proper attention.</p>
+
+                    <div class="calendar-embed">
+                        <iframe src="https://api.leadconnectorhq.com/widget/booking/hZX1brCCPwcLIBDsb5u0" style="width: 100%; min-height: 600px; border: none; overflow: hidden; border-radius: 10px;" scrolling="no" id="hZX1brCCPwcLIBDsb5u0_quiz"></iframe>
+                        <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+                    </div>
+                </div>
+
+                <p class="results-footer-disclaimer">
+                    Educational content only. The risk score above is based on your self-reported answers and is not a diagnosis or medical advice. For personalised guidance, please book a consultation with a qualified medical practitioner.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // GHL inbound webhook. Create it in GoHighLevel:
+        //   Automation > Workflows > + Create Workflow > Start from Scratch
+        //   Add Trigger > Inbound Webhook > copy the generated URL > paste below.
+        // Setup steps documented in email-sequence.md (Workflow 1: Webhook -> Contact).
+        const GHL_WEBHOOK_URL = 'YOUR_GHL_INBOUND_WEBHOOK_URL_HERE';
+
+        const answers = {};
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+
+        const questionTexts = {
+            1: "Primary motivation",
+            2: "Weight loss attempts",
+            3: "Weight goal",
+            4: "Past body changes",
+            5: "Strength training frequency",
+            6: "Protein intake",
+            7: "Energy levels",
+            8: "Biggest challenge",
+            9: "Investment readiness",
+            10: "Current support"
+        };
+
+        const answerTexts = {
+            1: { a: "I want to lose a specific amount of weight", b: "I want more energy and to feel better day-to-day", c: "I want to improve my body composition (less fat, more muscle)", d: "I want to reduce health risks (blood pressure, blood sugar, etc.)" },
+            2: { a: "This is my first serious attempt", b: "2-3 times", c: "4-5 times", d: "I've lost count" },
+            3: { a: "Less than 10kg", b: "10-20kg", c: "20-30kg", d: "More than 30kg" },
+            4: { a: "Yes - my face, arms, or overall 'shape' looked different", b: "Yes - I felt weaker or more tired than before", c: "Not really, but I'm worried about it", d: "I haven't lost meaningful weight before" },
+            5: { a: "3+ times per week", b: "1-2 times per week", c: "Occasionally or inconsistently", d: "Rarely or never" },
+            6: { a: "High - I prioritise protein at every meal", b: "Moderate - I try to include protein but don't track it", c: "Low - I don't think much about protein", d: "Struggling - my appetite is low and I'm eating less overall" },
+            7: { a: "High - I feel sharp and energetic most days", b: "Moderate - some days are good, some aren't", c: "Low - I feel flat or tired most days", d: "Very low - I struggle to get through the day" },
+            8: { a: "Sticking with it long-term", b: "Knowing what to eat", c: "Finding time to exercise", d: "Regaining weight after initial success" },
+            9: { a: "Yes, I'm ready to invest in doing this properly", b: "It depends on the cost and what's included", c: "I'm mostly looking for affordable options" },
+            10: { a: "Yes - a doctor, dietitian, or personal trainer", b: "Just my regular GP, occasionally", c: "An online or telehealth service", d: "No - I'm doing this on my own" }
+        };
+
+        const resultsContent = {
+            HIGH: {
+                icon: '🚨',
+                level: 'HIGH RISK',
+                title: 'Your Results Are In',
+                description: "Based on your answers, you're at significant risk of losing muscle mass alongside fat during your weight loss journey. Without the right approach, studies suggest a large portion of the weight you lose could be coming from lean muscle, not the fat you're trying to shift.",
+                impact: "This matters because muscle loss slows your metabolism (making it harder to keep weight off), can leave you feeling weak and tired, and is often responsible for the gaunt, aged look some people experience during rapid weight loss."
+            },
+            MODERATE: {
+                icon: '⚠️',
+                level: 'MODERATE RISK',
+                title: 'Your Results Are In',
+                description: "Based on your answers, you have some protective factors in place, but there's still room for improvement. The research is clear: without adequate protein and structured strength training, weight loss in a calorie deficit typically includes significant muscle loss.",
+                impact: "The good news is that with the right approach, you can optimise your results - losing fat while preserving (or even building) lean muscle."
+            },
+            LOW: {
+                icon: '🎉',
+                level: 'LOW RISK',
+                title: 'Your Results Are In',
+                description: "Great news - you're already doing some of the key things that protect muscle during weight loss. Your commitment to strength training and protein intake is putting you ahead of most people.",
+                impact: "That said, there's always room to optimise. With expert guidance, you could be getting even better results - and ensuring your approach is medically supported for the long term."
+            }
+        };
+
+        function calculateRiskScore() {
+            const strengthTraining = answers[5];
+            const proteinIntake = answers[6];
+            const bodyChanges = answers[4];
+
+            if ((proteinIntake === 'c' || proteinIntake === 'd') &&
+                (strengthTraining === 'c' || strengthTraining === 'd')) {
+                return 'HIGH';
+            }
+
+            if (proteinIntake === 'c' || proteinIntake === 'd' ||
+                strengthTraining === 'c' || strengthTraining === 'd' ||
+                bodyChanges === 'a' || bodyChanges === 'b') {
+                return 'MODERATE';
+            }
+
+            return 'LOW';
+        }
+
+        function calculateLeadQuality() {
+            const investmentReadiness = answers[9];
+            if (investmentReadiness === 'a') return 'HOT';
+            if (investmentReadiness === 'b') return 'WARM';
+            return 'COLD';
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestion;
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function goBack() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                updateProgress();
+                showScreen('q' + currentQuestion);
+                document.getElementById('progressContainer').style.display = 'block';
+            }
+        }
+
+        function goBackToQuiz() {
+            currentQuestion = totalQuestions;
+            updateProgress();
+            showScreen('q' + currentQuestion);
+            document.getElementById('progressContainer').style.display = 'block';
+        }
+
+        function showResults(riskScore) {
+            const content = resultsContent[riskScore];
+
+            const badge = document.getElementById('riskBadge');
+            badge.className = 'risk-badge ' + riskScore.toLowerCase();
+            document.getElementById('riskIcon').textContent = content.icon;
+            document.getElementById('riskLevel').textContent = content.level;
+
+            document.getElementById('resultsTitle').textContent = content.title;
+            document.getElementById('resultsDescription').textContent = content.description;
+            document.getElementById('resultsImpact').textContent = content.impact;
+
+            document.getElementById('progressContainer').style.display = 'none';
+
+            showScreen('results');
+        }
+
+        function submitToWebhook(formData) {
+            const riskScore = calculateRiskScore();
+            const leadQuality = calculateLeadQuality();
+
+            const quizAnswersNotes = `
+=== FAT LOSS READINESS QUIZ RESULTS ===
+Date: ${new Date().toLocaleDateString('en-AU')}
+Risk Score: ${riskScore}
+Lead Quality: ${leadQuality}
+
+--- QUIZ ANSWERS ---
+1. Primary Motivation: ${answerTexts[1][answers[1]] || 'Not answered'}
+2. Weight Loss Attempts: ${answerTexts[2][answers[2]] || 'Not answered'}
+3. Weight Goal: ${answerTexts[3][answers[3]] || 'Not answered'}
+4. Past Body Changes: ${answerTexts[4][answers[4]] || 'Not answered'}
+5. Strength Training: ${answerTexts[5][answers[5]] || 'Not answered'}
+6. Protein Intake: ${answerTexts[6][answers[6]] || 'Not answered'}
+7. Energy Levels: ${answerTexts[7][answers[7]] || 'Not answered'}
+8. Biggest Challenge: ${answerTexts[8][answers[8]] || 'Not answered'}
+9. Investment Readiness: ${answerTexts[9][answers[9]] || 'Not answered'}
+10. Current Support: ${answerTexts[10][answers[10]] || 'Not answered'}
+`.trim();
+
+            const payload = {
+                firstName: formData.firstName,
+                email: formData.email,
+                phone: formData.phone,
+                notes: quizAnswersNotes,
+                tags: [
+                    'Quiz Completed',
+                    'Risk: ' + riskScore,
+                    'Lead Quality: ' + leadQuality,
+                    'May 2026 Campaign',
+                    'Fat Loss Quiz'
+                ],
+                riskScore: riskScore,
+                leadQuality: leadQuality,
+                quizCompletedDate: new Date().toISOString(),
+                customFields: {
+                    riskScore: riskScore,
+                    leadQuality: leadQuality,
+                    quizCompletedDate: new Date().toISOString(),
+                    primaryMotivation: answers[1] || '',
+                    primaryMotivationText: answerTexts[1][answers[1]] || '',
+                    weightLossAttempts: answers[2] || '',
+                    weightLossAttemptsText: answerTexts[2][answers[2]] || '',
+                    weightGoal: answers[3] || '',
+                    weightGoalText: answerTexts[3][answers[3]] || '',
+                    bodyChanges: answers[4] || '',
+                    bodyChangesText: answerTexts[4][answers[4]] || '',
+                    strengthTraining: answers[5] || '',
+                    strengthTrainingText: answerTexts[5][answers[5]] || '',
+                    proteinIntake: answers[6] || '',
+                    proteinIntakeText: answerTexts[6][answers[6]] || '',
+                    energyLevels: answers[7] || '',
+                    energyLevelsText: answerTexts[7][answers[7]] || '',
+                    biggestChallenge: answers[8] || '',
+                    biggestChallengeText: answerTexts[8][answers[8]] || '',
+                    investmentReadiness: answers[9] || '',
+                    investmentReadinessText: answerTexts[9][answers[9]] || '',
+                    currentSupport: answers[10] || '',
+                    currentSupportText: answerTexts[10][answers[10]] || ''
+                }
+            };
+
+            if (GHL_WEBHOOK_URL && GHL_WEBHOOK_URL !== 'YOUR_GHL_INBOUND_WEBHOOK_URL_HERE') {
+                fetch(GHL_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                }).catch(error => console.error('Webhook error:', error));
+            } else {
+                console.log('Webhook not configured. Payload:', payload);
+            }
+
+            return riskScore;
+        }
+
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.dataset.question;
+                const value = this.dataset.value;
+
+                answers[question] = value;
+
+                this.parentElement.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+
+                setTimeout(() => {
+                    if (currentQuestion < totalQuestions) {
+                        currentQuestion++;
+                        updateProgress();
+                        showScreen('q' + currentQuestion);
+                    } else {
+                        document.getElementById('progressContainer').style.display = 'none';
+                        showScreen('leadForm');
+                    }
+                }, 300);
+            });
+        });
+
+        document.getElementById('captureForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const firstName = document.getElementById('firstName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (!firstName || !email || !phone) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+
+            const riskScore = submitToWebhook({ firstName, email, phone });
+            showResults(riskScore);
+        });
+
+        updateProgress();
+    </script>
+</body>
+</html>
